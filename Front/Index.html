@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cafeterias Blumenau</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #F3E9DC;
+      color: #5E3023;
+    }
+
+    .page {
+      display: none;
+      padding: 20px;
+      min-height: calc(100vh - 60px);
+      box-sizing: border-box;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    h2 {
+      margin-top: 0;
+      color: #5E3023;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #C08552;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button {
+      background: #C08552;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #895737;
+    }
+
+    .cafeteria-card {
+      background: white;
+      padding: 12px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      cursor: pointer;
+    }
+
+    /* === Tab Bar === */
+    #tab-bar-container {
+      display: none;
+    }
+
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: #F3E9DC;
+      border-top: 1px solid #C08552;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .tab-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      color: #5E3023;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .tab-item i {
+      width: 22px;
+      height: 22px;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login -->
+  <div id="login" class="page active">
+    <h2>Login</h2>
+    <input type="email" id="login-email" placeholder="Email">
+    <input type="password" id="login-password" placeholder="Senha">
+    <button onclick="login()">Entrar</button>
+    <button onclick="showPage('signup')">Criar Conta</button>
+  </div>
+
+  <!-- Cadastro -->
+  <div id="signup" class="page">
+    <h2>Criar Conta</h2>
+    <input type="email" id="signup-email" placeholder="Email">
+    <input type="password" id="signup-password" placeholder="Senha">
+    <button onclick="signup()">Cadastrar</button>
+    <button onclick="showPage('login')">Já tenho conta</button>
+  </div>
+
+  <!-- Home -->
+  <div id="home" class="page">
+    <h2>Bem-vindo!</h2>
+    <p>Escolha uma aba no menu abaixo.</p>
+    <button onclick="loadCafeterias(); showPage('cafeterias')">Ver Cafeterias</button>
+  </div>
+
+  <!-- Lista de Cafeterias -->
+  <div id="cafeterias" class="page">
+    <h2>Lista de Cafeterias</h2>
+    <div id="cafeteria-list"></div>
+  </div>
+
+  <!-- Página da Cafeteria -->
+  <div id="cafeteria" class="page">
+    <h2 id="cafeteria-nome"></h2>
+    <p id="cafeteria-endereco"></p>
+    <p id="cafeteria-avaliacoes"></p>
+    <button onclick="showPage('cafeterias')">Voltar</button>
+  </div>
+
+  <!-- Ranking -->
+  <div id="ranking" class="page">
+    <h2>Ranking</h2>
+    <p>Aqui vai o ranking das cafeterias.</p>
+  </div>
+
+  <!-- Perfil -->
+  <div id="perfil" class="page">
+    <h2>Perfil</h2>
+    <p>Aqui vai a página de perfil do usuário.</p>
+  </div>
+
+  <!-- Tab Bar -->
+  <div id="tab-bar-container">
+    <nav class="tab-bar">
+      <button onclick="showPage('home')" class="tab-item">
+        <i data-lucide="home"></i>
+        <span>Home</span>
+      </button>
+      <button onclick="showPage('cafeterias')" class="tab-item">
+        <i data-lucide="map-pin"></i>
+        <span>Locais</span>
+      </button>
+      <button onclick="showPage('ranking')" class="tab-item">
+        <i data-lucide="star"></i>
+        <span>Ranking</span>
+      </button>
+      <button onclick="showPage('perfil')" class="tab-item">
+        <i data-lucide="user"></i>
+        <span>Perfil</span>
+      </button>
+    </nav>
+  </div>
+
+  <script type="module" src="app.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

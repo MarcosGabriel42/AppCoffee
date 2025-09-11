@@ -1,0 +1,5 @@
+Objetivo - Criar um stie no estilo de aplicativo, com o tema de cafeterias utilizando banco de dados "SUPABASE" com pastas de Front e Back,
+ao finalizar postar no github e publicar;
+Utilizar uma unica tela e renderizar as paginas na home;
+
+Requisitos - tela de "Login, cadastro, home(pagina inicial), lista de cafeterias (nome, endereço, avaliações), pagina da cafeteria";
