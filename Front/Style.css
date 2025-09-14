@@ -6,84 +6,55 @@ body {
   color: #5E3023;
 }
 
-/* Container principal centralizado */
-main {
-  max-width: 480px;
-  margin: auto;
-  padding: 20px;
-}
-
 /* Páginas */
 .page {
   display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
   padding: 20px;
+  min-height: calc(100vh - 60px); /* já leva em conta a altura da tab bar */
+  box-sizing: border-box;
+  padding-bottom: 80px; /* espaço extra para não ficar escondido atrás da tab bar */
 }
 
 .page.active {
-  display: flex;
+  display: block;
 }
 
 /* Inputs e botões */
 input, button {
   width: 100%;
-  padding: 14px;
-  border-radius: 12px;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
   border: 1px solid #C08552;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-input {
-  background: #fff;
+  font-family: 'Poppins', sans-serif;
 }
 
 button {
   background: #C08552;
   color: white;
-  font-weight: bold;
   border: none;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
 button:hover {
   background: #895737;
 }
 
-/* Login/Cadastro específico */
-#login input, #signup input {
-  margin-bottom: 12px;
-}
-
-#login button, #signup button {
-  margin-top: 8px;
-}
-
-/* Lista de cafeterias */
-#cafeteria-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  width: 100%;
-}
-
+/* Cartões de cafeterias */
 .cafeteria-card {
-  padding: 15px;
-  border: 1px solid #C08552;
-  border-radius: 12px;
   background: white;
+  padding: 12px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   cursor: pointer;
-  transition: transform 0.1s ease;
-}
-
-.cafeteria-card:hover {
-  transform: scale(1.02);
 }
 
 /* Tab Bar */
+#tab-bar-container {
+  display: none;
+}
+
 .tab-bar {
   position: fixed;
   bottom: 0;
@@ -95,7 +66,6 @@ button:hover {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  font-family: 'Poppins', sans-serif;
   z-index: 999;
 }
 
@@ -118,6 +88,19 @@ button:hover {
   margin-bottom: 4px;
 }
 
-#tab-bar-container {
-  display: none;
+/* Estrelas de avaliação */
+#star-rating {
+  display: flex;
+  gap: 5px;
+  font-size: 24px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.star {
+  color: #ccc;
+}
+
+.star.selected {
+  color: gold;
 }

@@ -5,98 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cafeterias Blumenau</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #F3E9DC;
-      color: #5E3023;
-    }
-
-    .page {
-      display: none;
-      padding: 20px;
-      min-height: calc(100vh - 60px);
-      box-sizing: border-box;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    h2 {
-      margin-top: 0;
-      color: #5E3023;
-    }
-
-    input, button {
-      width: 100%;
-      padding: 12px;
-      margin: 8px 0;
-      border-radius: 8px;
-      border: 1px solid #C08552;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    button {
-      background: #C08552;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #895737;
-    }
-
-    .cafeteria-card {
-      background: white;
-      padding: 12px;
-      border-radius: 12px;
-      margin-bottom: 10px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      cursor: pointer;
-    }
-
-    /* === Tab Bar === */
-    #tab-bar-container {
-      display: none;
-    }
-
-    .tab-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 60px;
-      background: #F3E9DC;
-      border-top: 1px solid #C08552;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .tab-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: none;
-      color: #5E3023;
-      font-size: 12px;
-      cursor: pointer;
-    }
-
-    .tab-item i {
-      width: 22px;
-      height: 22px;
-      margin-bottom: 4px;
-    }
-  </style>
 </head>
 <body>
   <!-- Login -->
@@ -128,6 +38,7 @@
   <div id="cafeterias" class="page">
     <h2>Lista de Cafeterias</h2>
     <div id="cafeteria-list"></div>
+    <button onclick="showPage('add-cafeteria')">Adicionar Cafeteria</button>
   </div>
 
   <!-- Página da Cafeteria -->
@@ -135,7 +46,25 @@
     <h2 id="cafeteria-nome"></h2>
     <p id="cafeteria-endereco"></p>
     <p id="cafeteria-avaliacoes"></p>
+    <div id="cafeteria-detalhes"></div> <!-- Botão de excluir será inserido aqui -->
     <button onclick="showPage('cafeterias')">Voltar</button>
+  </div>
+
+
+  <!-- Adicionar Cafeteria -->
+  <div id="add-cafeteria" class="page">
+    <h2>Adicionar Cafeteria</h2>
+    <input type="text" id="new-nome" placeholder="Nome da Cafeteria">
+    <input type="text" id="new-endereco" placeholder="Endereço">
+    <div id="star-rating">
+      <span class="star" data-value="1">☆</span>
+      <span class="star" data-value="2">☆</span>
+      <span class="star" data-value="3">☆</span>
+      <span class="star" data-value="4">☆</span>
+      <span class="star" data-value="5">☆</span>
+    </div>
+    <button onclick="addCafeteria()">Salvar</button>
+    <button onclick="showPage('cafeterias')">Cancelar</button>
   </div>
 
   <!-- Ranking -->
@@ -144,11 +73,43 @@
     <p>Aqui vai o ranking das cafeterias.</p>
   </div>
 
-  <!-- Perfil -->
-  <div id="perfil" class="page">
-    <h2>Perfil</h2>
-    <p>Aqui vai a página de perfil do usuário.</p>
+<!-- Cadastro / Perfil -->
+<div id="signup" class="page">
+  <h2>Criar Conta / Editar Perfil</h2>
+
+  <!-- Foto de Perfil -->
+  <div style="text-align:center; margin-bottom:15px;">
+    <img id="perfil-foto" src="https://via.placeholder.com/100" alt="Foto de Perfil" style="border-radius:50%; width:100px; height:100px; object-fit:cover;">
+    <input type="file" id="perfil-foto-input" accept="image/*" style="margin-top:10px;">
   </div>
+
+  <input type="text" id="signup-nome" placeholder="Nome de Usuário">
+  <input type="email" id="signup-email" placeholder="Email">
+  <input type="password" id="signup-senha" placeholder="Senha">
+
+  <button onclick="signup()">Criar Conta</button>
+  <button onclick="showPage('login')">Já tenho conta</button>
+</div>
+
+<!-- Perfil -->
+<div id="perfil" class="page">
+  <h2>Perfil do Usuário</h2>
+
+  <div style="text-align:center; margin-bottom:15px;">
+    <img id="perfil-foto-edit" src="https://via.placeholder.com/100" alt="Foto de Perfil" style="border-radius:50%; width:100px; height:100px; object-fit:cover;">
+    <input type="file" id="perfil-foto-input-edit" accept="image/*" style="margin-top:10px;">
+  </div>
+
+  <input type="text" id="perfil-nome" placeholder="Nome de Usuário">
+  <input type="email" id="perfil-email" placeholder="Email" disabled>
+  <input type="password" id="perfil-senha" placeholder="Senha">
+
+  <button onclick="editarPerfil()">Salvar Alterações</button>
+  <button onclick="sairConta()" style="background:#C08552; margin-top:5px;">Sair da Conta</button>
+  <button onclick="excluirConta()" style="background:#ff4d4d; margin-top:5px;">Excluir Conta</button>
+</div>
+
+
 
   <!-- Tab Bar -->
   <div id="tab-bar-container">
